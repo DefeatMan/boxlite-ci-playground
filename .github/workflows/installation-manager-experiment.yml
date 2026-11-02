@@ -1,0 +1,20 @@
+name: Installation Manager Experiment
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    strategy:
+      matrix:
+        sample: [one, two]
+    runs-on: boxlite-manager-20261103
+    timeout-minutes: 3
+    steps:
+      - name: Verify isolated execution
+        shell: bash
+        run: |
+          test "$(uname -s)" = Linux
+          test "$((6 * 7))" = 42
+          sleep 3
+          printf 'Installation pool job completed\n'
