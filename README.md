@@ -52,3 +52,7 @@ The trigger split, matrix testing and release lifecycle are simplified from
 [BoxLite's public workflows](https://github.com/boxlite-ai/boxlite/tree/30a7c982d40da3118c6a59547904666c1412b756/.github/workflows).
 See GitHub's [event reference](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows)
 and [artifact actions](https://github.com/actions/upload-artifact) for their contracts.
+
+The PR example adds fractional and cancellation cases: `sum([0.25, 0.5])`
+returns `0.75`, and `sum([12, -12, 0])` returns `0`.
+These assertions run in both Node versions before the demonstration PR is merged.

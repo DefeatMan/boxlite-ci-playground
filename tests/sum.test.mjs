@@ -14,3 +14,8 @@ test('rejects invalid input and overflow', () => {
   }
   assert.throws(() => sum([Number.MAX_VALUE, Number.MAX_VALUE]), RangeError);
 });
+
+test('preserves exact binary fractions and cancellation', () => {
+  assert.equal(sum([0.25, 0.5]), 0.75);
+  assert.equal(sum([12, -12, 0]), 0);
+});
