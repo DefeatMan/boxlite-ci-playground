@@ -27,7 +27,7 @@ This is a configuration check, not a complete sandbox security assessment.
 1. Push a commit to main: Lint, Test and Build run automatically.
 2. Create a branch in this repository, change a test and open a PR against main.
 3. Wait for the checks, then merge the PR; main push checks run again.
-4. Publish a release whose tag matches `v` plus `package.json` version, for example `v0.1.1`.
+4. Publish a release whose tag matches `v` plus `package.json` version, for example `v0.1.2`.
 5. Download `playground.tar.gz` and `SHA256SUMS` from the release and verify the archive.
 
 Fork PRs are deliberately skipped on this self-hosted demo. All external actions

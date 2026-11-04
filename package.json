@@ -1,6 +1,6 @@
 {
   "name": "boxlite-ci-playground",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "type": "module",
   "description": "A dependency-free fixture for GitHub Actions on BoxLite"
