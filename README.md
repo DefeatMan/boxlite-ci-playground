@@ -12,8 +12,8 @@ The sample has no npm dependencies: it validates and sums a list of numbers.
 | Build | Push to main, same-repository PR, manual | Job output, artifact upload, download in a fresh worker, checksum and packaged-code verification |
 | Release | Published GitHub release | Tag checkout, tests, packaging and release asset upload |
 
-Every job uses `runs-on: boxlite-ci-runner`. A repository-scoped BoxLite Listener
-must be running with that Scale Set name. The Listener can authenticate using a
+Every job uses `runs-on: boxlite-ci-runner`. A BoxLite Listener must be configured
+for this repository and offer that runner label. The Listener can authenticate using a
 GitHub App or a personal access token. Its management credentials stay outside
 this repository and outside the CI worker. Each job gets a fresh worker.
 
@@ -27,7 +27,7 @@ This is a configuration check, not a complete sandbox security assessment.
 1. Push a commit to main: Lint, Test and Build run automatically.
 2. Create a branch in this repository, change a test and open a PR against main.
 3. Wait for the checks, then merge the PR; main push checks run again.
-4. Publish a release whose tag matches `v` plus `package.json` version, for example `v0.1.0`.
+4. Publish a release whose tag matches `v` plus `package.json` version, for example `v0.1.1`.
 5. Download `playground.tar.gz` and `SHA256SUMS` from the release and verify the archive.
 
 Fork PRs are deliberately skipped on this self-hosted demo. All external actions
