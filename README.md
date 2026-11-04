@@ -55,4 +55,4 @@ and [artifact actions](https://github.com/actions/upload-artifact) for their con
 
 The PR example adds fractional and cancellation cases: `sum([0.25, 0.5])`
 returns `0.75`, and `sum([12, -12, 0])` returns `0`.
-These assertions run in both Node versions before the demonstration PR is merged.
+These assertions run in both Node versions on pushes and pull requests.
