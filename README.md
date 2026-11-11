@@ -12,8 +12,10 @@ The sample has no npm dependencies: it validates and sums a list of numbers.
 | Build | Push to main, same-repository PR, manual | Job output, artifact upload, download in a fresh worker, checksum and packaged-code verification |
 | Release | Published GitHub release | Tag checkout, tests, packaging and release asset upload |
 
-Every job uses `runs-on: boxlite-ci-runner`. A BoxLite Listener must be configured
-for this repository and offer that runner label. The Listener can authenticate using a
+Jobs use `runs-on: boxlite` for default resources. The Test matrix also runs
+Node 24 on `boxlite-2vcpu-4gbmem-10gbdisk` to request 2 vCPU, 4 GiB RAM and
+10 GiB disk. A BoxLite Listener must be configured for this repository and support
+these routing labels. The Listener can authenticate using a
 GitHub App or a personal access token. Its management credentials stay outside
 this repository and outside the CI worker. Each job gets a fresh worker.
 

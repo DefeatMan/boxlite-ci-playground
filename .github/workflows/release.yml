@@ -8,7 +8,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   publish:
-    runs-on: boxlite-ci-runner
+    runs-on: boxlite
     timeout-minutes: 10
     permissions:
       contents: write
