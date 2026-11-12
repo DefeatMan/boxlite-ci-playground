@@ -1,0 +1,45 @@
+name: Parallel Jobs
+run-name: Parallel ${{ inputs.jobs }} jobs, hold ${{ inputs.hold_seconds }}s
+on:
+  workflow_dispatch:
+    inputs:
+      jobs:
+        description: Number of independent jobs
+        type: choice
+        default: '8'
+        options: ['4', '8', '16']
+      hold_seconds:
+        description: Seconds each job keeps its runner occupied
+        type: choice
+        default: '180'
+        options: ['60', '180', '300', '600']
+permissions:
+  contents: read
+jobs:
+  hold:
+    name: Worker ${{ matrix.worker }}
+    runs-on: boxlite
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        worker: ${{ fromJSON(inputs.jobs == '4' && '[1,2,3,4]' || inputs.jobs == '8' && '[1,2,3,4,5,6,7,8]' || '[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]') }}
+    steps:
+      - name: Hold runner and record timing
+        shell: bash
+        env:
+          HOLD_SECONDS: ${{ inputs.hold_seconds }}
+          WORKER: ${{ matrix.worker }}
+        run: |
+          started_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          printf 'Worker %s on %s started at %s; holding for %ss\n' \
+            "$WORKER" "$RUNNER_NAME" "$started_at" "$HOLD_SECONDS"
+          sleep "$HOLD_SECONDS"
+          finished_at=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          printf 'Worker %s finished at %s\n' "$WORKER" "$finished_at"
+          {
+            printf '| Worker | Runner | Started (UTC) | Finished (UTC) | Hold (s) |\n'
+            printf '| --- | --- | --- | --- | --- |\n'
+            printf '| %s | %s | %s | %s | %s |\n' \
+              "$WORKER" "$RUNNER_NAME" "$started_at" "$finished_at" "$HOLD_SECONDS"
+          } >> "$GITHUB_STEP_SUMMARY"

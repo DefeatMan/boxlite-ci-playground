@@ -11,6 +11,7 @@ The sample has no npm dependencies: it validates and sums a list of numbers.
 | Test | Push to main, same-repository PR | Node 22/24 matrix, assertions and job conclusions |
 | Build | Push to main, same-repository PR, manual | Job output, artifact upload, download in a fresh worker, checksum and packaged-code verification |
 | Release | Published GitHub release | Tag checkout, tests, packaging and release asset upload |
+| Parallel Jobs | Manual | 4, 8 or 16 independent jobs holding their runners for 60–600 seconds |
 
 Jobs use `runs-on: boxlite` for default resources. The Test matrix also runs
 Node 24 on `boxlite-2vcpu-4gbmem-10gbdisk` to request 2 vCPU, 4 GiB RAM and
@@ -18,6 +19,13 @@ Node 24 on `boxlite-2vcpu-4gbmem-10gbdisk` to request 2 vCPU, 4 GiB RAM and
 these routing labels. The Listener can authenticate using a
 GitHub App or a personal access token. Its management credentials stay outside
 this repository and outside the CI worker. Each job gets a fresh worker.
+
+To test concurrent scheduling, open Actions → Parallel Jobs → Run workflow.
+The default is 8 jobs, each waiting 180 seconds on `boxlite`. Select 4, 8 or 16
+jobs and a wait of 60, 180, 300 or 600 seconds. This workflow has no concurrency
+group, job dependencies or matrix parallelism cap, so separate runs can overlap.
+Actual simultaneous execution depends on available runner capacity and quotas.
+Each job logs UTC start and finish times and writes them to its job summary.
 
 The setup action installs Node and make explicitly. These workflows do not assume
 the full `ubuntu-latest` software image. They check that known Listener credential
